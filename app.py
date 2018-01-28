@@ -70,7 +70,7 @@ def make_site_with_rssfeed_readable_again(url, filename, is_clean):
         if is_clean:
             template = APP_PATH+'/'+'template_clean.html'
         else:
-            template = APP_PATH+'/'+'template_dark.html'
+            template = APP_PATH+'/'+'template_readable.html'
 
         html_content = Template(filename=template, output_encoding='utf-8').render(feedurl=url,entries=entries,feedtitle=feedtitle)
         
@@ -86,10 +86,10 @@ def make_site_with_rssfeed_readable_again(url, filename, is_clean):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Fetch an RSS-Feed and generate a Webpage from it.', 
-        epilog='e.g: python %(prog)s -f https://www.netzpolitik.org/feed -o index.html -c NO')
+        epilog='e.g: python %(prog)s -f https://www.netzpolitik.org/feed -o index.html -r YES')
     parser.add_argument('--feedurl', '-f', dest='feedurl', required=False, help='url of feed to fetch')
     parser.add_argument('--output', '-o', dest='output', required=False, help='filename of html to output')
-    parser.add_argument('--clean', '-c', dest='clean', required=True, default=False, choices=['YES','NO'] ,help='clean output without any CSS/style')
+    parser.add_argument('--readable', '-r', dest='readable', required=True, default=False, choices=['YES','NO'] ,help='add css to make it readable')
     args = parser.parse_args()
 
     if not args:
@@ -106,15 +106,15 @@ if __name__ == '__main__':
     if not ouputfile:
         ouputfile = DEFAULT_STATIC_SITE
 
-    clean = args.clean
+    readable = args.readable
     is_clean = DEFAULT_IS_CLEAN
-    if not clean:
+    if not readable:
         is_clean = DEFAULT_IS_CLEAN
     else:
-        if clean.decode('utf-8').lower() == 'yes':
-            is_clean = True
-        else:
+        if readable.decode('utf-8').lower() == 'yes':
             is_clean = False
+        else:
+            is_clean = True
 
     if should_print_hint:
         parser.print_help()

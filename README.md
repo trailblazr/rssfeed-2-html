@@ -12,7 +12,7 @@ Then run `pip install -r requirements.txt` to install all needed modules.
 Type `python app.py -h` to get following help:
 
 ```
-usage: app.py [-h] [--feedurl FEEDURL] [--output OUTPUT] --clean {YES,NO}
+usage: app.py [-h] [--feedurl FEEDURL] [--output OUTPUT] --readable {YES,NO}
 
 Fetch an RSS-Feed and generate a Webpage from it.
 
@@ -22,10 +22,10 @@ optional arguments:
                         url of feed to fetch
   --output OUTPUT, -o OUTPUT
                         filename of html to output
-  --clean {YES,NO}, -c {YES,NO}
-                        clean output without any CSS/style
+  --readable {YES,NO}, -r {YES,NO}
+                        add css to make it readable
 
-e.g: python app.py -f https://www.netzpolitik.org/feed -o index.html -c NO
+e.g: python app.py -f https://www.netzpolitik.org/feed -o index.html -r YES
 ```
 
 ## Example

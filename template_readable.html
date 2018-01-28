@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>${feedtitle}</title>
+<meta charset="utf-8"><html>
+<style type="text/css">
+figcaption {
+	border:solid 1px gray;
+	border-radius: 3px;
+	padding:3px;
+	display:block;
+}
+
+.media-license-caption {
+	color:red;
+	font-size: tiny;
+	margin-left:5px;
+	margin-right:5px;
+}
+
+.content {
+	margin-left:20px;
+	margin-right:20px;
+}
+.code {
+	padding:20px;
+	font-family:Courier;
+	border-radius: 3px;
+	margin-left:30px;
+	margin-right:30px;
+}
+
+.vgwort {
+	display:none;
+}
+
+.spenden {
+	display:none;
+}
+
+img {
+    width:100%;
+    height:100%;
+	max-width: 350px;
+	max-height: 350px;
+	padding:10px;
+}
+
+video {
+    width:100%;
+    height:100%;
+	max-width: 800px;
+	max-height: 800px;
+}
+
+hr.style3 {
+	border-top: 1px dashed #000;
+}
+</style>
+<script type="text/javascript" src="js/jquery-1.3.1.min.js"></script>
+<script type="text/javascript" src="js/readability-start.js"></script>
+<link rel="stylesheet" href="css/readability-home.css" type="text/css" media="screen">
+</head>
+    <body>
+ 		<div id="container">
+        <form name="applySettings">
+        <div id="settings">
+            <div class="settings-box" id="style">
+                <p class="settings-header">Style</p>
+                <p><input type="radio" name="style" value="style-newspaper" id="newspaper" /><label for="newspaper">Newspaper</label></p>
+                <p><input type="radio" name="style" value="style-novel" id="novel"/><label for="novel">Novel</label></p>
+                <p><input type="radio" name="style" value="style-ebook" id="ebook" /><label for="ebook">eBook</label></p>       
+                <p><input type="radio" name="style" value="style-terminal" id="terminal" checked="checked" /><label for="terminal">Terminal</label></p>       
+            </div>
+            <div class="settings-box" id="size">
+                <p class="settings-header">Size</p>
+                <p><input type="radio" name="size" value="size-small" id="small" /><label for="small">Small</label></p>
+                <p><input type="radio" name="size" value="size-medium" id="medium" checked="checked" /><label for="medium">Medium</label></p>
+                <p><input type="radio" name="size" value="size-large" id="large" /><label for="large">Large</label></p>                    
+                <p><input type="radio" name="size" value="size-x-large" id="x-large" /><label for="x-large">Extra Large</label></p>                 
+            </div>
+            <div class="settings-box" id="margin">
+                <p class="settings-header">Margin</p>
+                <p><input type="radio" name="margin" value="margin-narrow" id="narrow" checked="checked" /><label for="narrow">Narrow</label></p>
+                <p><input type="radio" name="margin" value="margin-medium" id="med" /><label for="med">Medium</label></p>
+                <p><input type="radio" name="margin" value="margin-wide" id="wide" /><label for="wide">Wide</label></p>               
+                <p><input type="radio" name="margin" value="margin-x-wide" id="x-wide" /><label for="x-wide">Extra Wide</label></p>             
+            </div>
+            <div id="bookmarklet">
+                <a id="bookmarkletLink"><img src="images/readability-drag.png" alt="Readability" /></a>
+            </div>
+        </div>
+        </form>
+        <div id="example" class="style-terminal">
+        <div id="articleContent" class="margin-narrow size-medium">
+
+    	<center><h1>${feedtitle}</h1></center>
+    	    <br clear=all>
+            <center><hr class="style3" size="1" width="50%"></center>
+            <br clear=all>
+        % for entry in entries:
+            <div>
+            	% if hasattr( entry, 'id' ):
+                <h2><a href='${entry.id}'>${entry.title}</a></h2>
+                % else:
+                <h2><a href='${entry.link}'>${entry.title}</a></h2>
+                % endif
+
+                <p><small><i>
+            	% if hasattr( entry, 'author' ):
+                by <b>${entry.author}</b>
+                % endif
+
+                % if hasattr( entry, 'published' ):
+                 on <b>${entry.published}</b>
+                % endif
+            	</i></small></p>
+                
+                % if hasattr( entry, 'content' ):
+				<p>${entry.content[1].value}</p>
+				% else:
+				<p>${entry.summary}</p>
+				% endif
+				<p><b><u>Source:</u></b> ${entry.link}</p>
+            </div>
+            <br clear=all>
+            <br clear=all>
+            <center><hr class="style3" size="1" width="50%"></center>
+            <br clear=all>
+        % endfor
+        <center><h1>EOF</h1></center>
+        <br clear=all>
+        <center><small>Source: <a href="${feedurl}">${feedurl}</a> (RSS)</small></center>
+        <center><a href="https://code.google.com/archive/p/arc90labs-readability/source"><img src="images/footer-readability.png" class="footer-credits-img"></a></center>
+    </div><!-- articleContent -->
+    </div><!-- example -->
+    </div><!-- container -->
+    </body>
+</html>
