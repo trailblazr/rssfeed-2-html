@@ -30,7 +30,7 @@ e.g: python app.py -f https://www.netzpolitik.org/feed -o index.html -r YES
 
 ## Example
 
-Type `python app.py -f https://www.hackerspace-bremen.de/feed -o space.html -c YES`
+Type `python app.py -f https://www.hackerspace-bremen.de/feed -o space.html -r NO`
 you will get an output file `space.html` which contains all the rss feed entries put into this file as a static website without any CSS / style infos.
 
 ## Installation (Server)
