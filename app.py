@@ -9,18 +9,25 @@
 #
 # by trailblazr in Jan 2018
 
+import sys
+# fucking encoding!!!!!!!!!!!!!!!!!!!!!!!
+reload(sys)
+sys.setdefaultencoding( 'utf-8' )
+
+# needed for basic file I/O
+import os, traceback, argparse
+
 import requests
 import feedparser
 import BeautifulSoup
 import bs4 as bs
-import argparse
 from readability import Document
-import traceback
 
 from feedparser import parse as parse_feed
 from mako.template import Template
 
-APP_DEBUG = False
+APP_PATH            = os.path.dirname(os.path.abspath(__file__))
+APP_DEBUG           = False
 
 DEFAULT_TITLE       = 'Feedtitle'
 DEFAULT_FEED_SOURCE = 'https://www.hackerspace-bremen.de/feed'
@@ -61,9 +68,9 @@ def make_site_with_rssfeed_readable_again(url, filename, is_clean):
             feedtitle = DEFAULT_TITLE
 
         if is_clean:
-            template = 'template_clean.html'
+            template = APP_PATH+'/'+'template_clean.html'
         else:
-            template = 'template_dark.html'
+            template = APP_PATH+'/'+'template_dark.html'
 
         html_content = Template(filename=template, output_encoding='utf-8').render(feedurl=url,entries=entries,feedtitle=feedtitle)
         

@@ -1,0 +1,2 @@
+# Sample crontab entry line which calls our cron script every 5 mimnutes
+*/5 * * * * /home/www/yourserverdomain/webapp/cron.sh
