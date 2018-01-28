@@ -128,17 +128,22 @@ hr.style3 {
                  on <b>${entry.published}</b>
                 % endif
             	</i></small></p>
-
+                
                 % if hasattr( entry, 'content' ):
-				<p>${entry.content[1].value}</p>
+
+                	% if len(entry.content) > 1:
+					<p>${entry.content[1].value}</p>
+					% else:
+					<p>${entry.summary}</p>
+					% endif
+
 				% else:
 				<p>${entry.summary}</p>
-				<p><b><u>Source:</u></b> ${entry.link}</p>
 				% endif
+				<p><b><u>Source:</u></b> ${entry.link}</p>
             </div>
             <br clear=all>
-            <br clear=all>
-            <center><hr class="style3" size="1" width="50%"></center>
+            <center><hr class="style3"></center>
             <br clear=all>
         % endfor
         <center><h1>EOF</h1></center>

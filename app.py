@@ -22,10 +22,14 @@ import feedparser
 import BeautifulSoup
 import bs4 as bs
 from readability import Document
+from datetime import datetime, date
 
 from feedparser import parse as parse_feed
 from mako.template import Template
 
+APP_BRANDNAME       = 'FeedReadability'
+APP_BUILD           = 10
+APP_RELEASE         = '1.0'
 APP_PATH            = os.path.dirname(os.path.abspath(__file__))
 APP_DEBUG           = False
 
@@ -38,7 +42,9 @@ def make_site_with_rssfeed_readable_again(url, filename, is_clean):
     """Convert feed to an HTML."""
     with open(filename, 'w') as file_object:
         print "\nOPENING URL: "+url+"\n\n"
-        response = requests.get( url )
+        headers = {'User-Agent': APP_BRANDNAME+'/'+APP_RELEASE+' (Unix; Intel OS Nine 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.119 Safari/537.36' }
+
+        response = requests.get( url, headers=headers )
         mystr = response.text
 
         # remove heigh and width in images because CSS will do that
@@ -51,7 +57,7 @@ def make_site_with_rssfeed_readable_again(url, filename, is_clean):
         mystr = mystr.replace(u"Mit Deiner finanziellen Hilfe unterstützt Du unabhängigen Journalismus.", "")
         
         if APP_DEBUG:
-            print "FEED:\n"+mystr+"\n****************************"
+            print "FEED:\n"+ str( mystr )+"\n****************************"
 
         feedtitle = None
         try:
@@ -63,6 +69,8 @@ def make_site_with_rssfeed_readable_again(url, filename, is_clean):
         except Exception, e:
             print "PARSING-ERROR: " + str( e )
             print( traceback.format_exc() )
+            pass
+
 
         if not feedtitle:
             feedtitle = DEFAULT_TITLE
@@ -72,7 +80,10 @@ def make_site_with_rssfeed_readable_again(url, filename, is_clean):
         else:
             template = APP_PATH+'/'+'template_readable.html'
 
-        html_content = Template(filename=template, output_encoding='utf-8').render(feedurl=url,entries=entries,feedtitle=feedtitle)
+        if APP_DEBUG:
+            print "\n ENTRIES TO RENDER: "+ str( len(entries) ) +"\n"
+        html_footer = site_footer_html()
+        html_content = Template(filename=template, output_encoding='utf-8').render(feedurl=url,entries=entries,feedtitle=feedtitle,footer=html_footer)
         
         if APP_DEBUG:
             print "HTML:\n"+ html_content+"\n****************************"
@@ -83,6 +94,17 @@ def make_site_with_rssfeed_readable_again(url, filename, is_clean):
 
         else:
             file_object.write( html_content )
+
+# footer
+def site_footer_html():
+    STYLE_HR = 'border: 0;height: 0;border-top: 1px solid rgba(0, 0, 0, 0.1);'
+    today = datetime.now()
+    version_info = 'Release '+str(APP_RELEASE)+' (build '+str(APP_BUILD)+') of '+APP_BRANDNAME
+    footer = '<hr style="margin-top:50px;" class="style3" /><div style="margin-top:10px;margin-bottom:10px;">'
+    footer = footer + '<div style="text-align:center;color:gray;"><small>'
+    footer = footer + 'created 2018-'+str( today.year )+', by trailblazr &middot; '+version_info
+    footer = footer + '</small></div>'
+    return footer
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Fetch an RSS-Feed and generate a Webpage from it.', 
