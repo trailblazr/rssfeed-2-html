@@ -9,4 +9,4 @@ source $basedir/bin/activate
 # following command executes your python app
 # give a nice output file path where to write the file on your server
 # pipe any output to /dev/null otherwise cron will send you emails...
-python $basedir/app.py -f https://netzpolitik.org/feed -o /home/www/yourserverdomain/htdocs/netzpolitik/index.html -c NO > /dev/null
+python $basedir/app.py -f https://netzpolitik.org/feed -o /home/www/yourserverdomain/htdocs/netzpolitik/index.html -r YES > /dev/null
