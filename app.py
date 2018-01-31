@@ -28,7 +28,7 @@ from feedparser import parse as parse_feed
 from mako.template import Template
 
 APP_BRANDNAME       = 'FeedReadability'
-APP_BUILD           = 10
+APP_BUILD           = 12
 APP_RELEASE         = '1.0'
 APP_PATH            = os.path.dirname(os.path.abspath(__file__))
 APP_DEBUG           = False
@@ -82,8 +82,10 @@ def make_site_with_rssfeed_readable_again(url, filename, is_clean):
 
         if APP_DEBUG:
             print "\n ENTRIES TO RENDER: "+ str( len(entries) ) +"\n"
+
+        last_entry_link = entries[len(entries)-1].link
         html_footer = site_footer_html()
-        html_content = Template(filename=template, output_encoding='utf-8').render(feedurl=url,entries=entries,feedtitle=feedtitle,footer=html_footer)
+        html_content = Template(filename=template, output_encoding='utf-8').render(last_entry_link=last_entry_link,num_of_entries=len(entries),feedurl=url,entries=entries,feedtitle=feedtitle,footer=html_footer)
         
         if APP_DEBUG:
             print "HTML:\n"+ html_content+"\n****************************"
@@ -97,12 +99,11 @@ def make_site_with_rssfeed_readable_again(url, filename, is_clean):
 
 # footer
 def site_footer_html():
-    STYLE_HR = 'border: 0;height: 0;border-top: 1px solid rgba(0, 0, 0, 0.1);'
     today = datetime.now()
-    version_info = 'Release '+str(APP_RELEASE)+' (build '+str(APP_BUILD)+') of '+APP_BRANDNAME
-    footer = '<hr style="margin-top:50px;" class="style3" /><div style="margin-top:10px;margin-bottom:10px;">'
-    footer = footer + '<div style="text-align:center;color:gray;"><small>'
-    footer = footer + 'created 2018-'+str( today.year )+', by trailblazr &middot; '+version_info
+    version_info = 'Release '+str(APP_RELEASE)+' (build '+str(APP_BUILD)+')'
+    footer = '<div style="margin-top:10px;margin-bottom:10px;">'
+    footer = footer + '<div style="color:gray;"><small>'
+    footer = footer + APP_BRANDNAME+' &middot; created 2018-'+str( today.year )+' &middot; by trailblazr &middot; '+version_info
     footer = footer + '</small></div>'
     return footer
 

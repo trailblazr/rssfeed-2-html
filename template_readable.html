@@ -63,51 +63,58 @@ hr.style3 {
 <script type="text/javascript" src="js/readability-start.js"></script>
 <link rel="stylesheet" href="css/readability-home.css" type="text/css" media="screen">
 </head>
-    <body>
+    <body id="fullBody" class="background-none">
  		<div id="container">
-        <form name="applySettings">
+        <form name="applySettings" class="roundbox">
         <div id="settings">
             <div class="settings-box" id="style">
                 <p class="settings-header">Style</p>
                 <p><input type="radio" name="style" value="style-newspaper" id="newspaper" /><label for="newspaper">Newspaper</label></p>
                 <p><input type="radio" name="style" value="style-novel" id="novel"/><label for="novel">Novel</label></p>
                 <p><input type="radio" name="style" value="style-ebook" id="ebook" /><label for="ebook">eBook</label></p>       
-                <p><input type="radio" name="style" value="style-terminal" id="terminal" checked="checked" /><label for="terminal">Terminal</label></p>       
+                <p><input type="radio" name="style" value="style-terminal" id="terminal" /><label for="terminal">Terminal</label></p>       
             </div>
             <div class="settings-box" id="size">
                 <p class="settings-header">Size</p>
                 <p><input type="radio" name="size" value="size-small" id="small" /><label for="small">Small</label></p>
-                <p><input type="radio" name="size" value="size-medium" id="medium" checked="checked" /><label for="medium">Medium</label></p>
+                <p><input type="radio" name="size" value="size-medium" id="medium" /><label for="medium">Medium</label></p>
                 <p><input type="radio" name="size" value="size-large" id="large" /><label for="large">Large</label></p>                    
                 <p><input type="radio" name="size" value="size-x-large" id="x-large" /><label for="x-large">Extra Large</label></p>                 
             </div>
             <div class="settings-box" id="margin">
                 <p class="settings-header">Margin</p>
-                <p><input type="radio" name="margin" value="margin-narrow" id="narrow" checked="checked" /><label for="narrow">Narrow</label></p>
+                <p><input type="radio" name="margin" value="margin-narrow" id="narrow" /><label for="narrow">Narrow</label></p>
                 <p><input type="radio" name="margin" value="margin-medium" id="med" /><label for="med">Medium</label></p>
                 <p><input type="radio" name="margin" value="margin-wide" id="wide" /><label for="wide">Wide</label></p>               
                 <p><input type="radio" name="margin" value="margin-x-wide" id="x-wide" /><label for="x-wide">Extra Wide</label></p>             
+            </div>
+            <div class="settings-box" id="background">
+                <p class="settings-header">Background</p>
+                <p><input type="radio" name="background" value="background-none" id="bgnone" /><label for="bgnone">None</label></p>
+                <p><input type="radio" name="background" value="background-masseffect" id="bgmass" /><label for="bgmass">Utopia</label></p>
+                <p><input type="radio" name="background" value="background-fancy" id="bgfancy" /><label for="bgfancy">Reality</label></p>               
+                <p><input type="radio" name="background" value="background-nature" id="bgnature" /><label for="bgnature">Dystopia</label></p>             
             </div>
             <div id="bookmarklet">
                 <a id="bookmarkletLink"><img src="images/readability-drag.png" alt="Readability" /></a>
             </div>
         </div>
         </form>
-        <div id="example" class="style-terminal">
-        <div id="articleContent" class="margin-narrow size-medium">
+        <div id="example" class="style-ebook">
+        <div id="articleContent" class="margin-narrow size-large">
 
     	<center><h1>${feedtitle}</h1></center>
-    	    <br clear=all>
-            <center><hr class="style3"></center>
-            <br clear=all>
+            <!-- center><hr class="style3"></center -->
+            <center><h1>${num_of_entries} articles</h1></center>
         % for entry in entries:
             <div>
+            	<!-- headline with link -->
             	% if hasattr( entry, 'id' ):
                 <h2><a href='${entry.id}'>${entry.title}</a></h2>
                 % else:
                 <h2><a href='${entry.link}'>${entry.title}</a></h2>
                 % endif
-
+                <!-- author -->
                 <p><small><i>
             	% if hasattr( entry, 'author' ):
                 by <b>${entry.author}</b>
@@ -117,7 +124,7 @@ hr.style3 {
                  on <b>${entry.published}</b>
                 % endif
             	</i></small></p>
-                
+                <!-- content or summary -->
                 % if hasattr( entry, 'content' ):
 
                 	% if len(entry.content) > 1:
@@ -129,11 +136,28 @@ hr.style3 {
 				% else:
 				<p>${entry.summary}</p>
 				% endif
+				<!-- author -->
+				<p><small><i>
+            	% if hasattr( entry, 'author' ):
+                by <b>${entry.author}</b>
+                % endif
+
+                % if hasattr( entry, 'published' ):
+                 on <b>${entry.published}</b>
+                % endif
+            	</i></small></p>
+            	<!-- source link -->
 				<p><b><u>Source:</u></b> ${entry.link}</p>
             </div>
+            % if not last_entry_link == entry.link:
+            <!-- divider between articles -->
             <br clear=all>
-            <center><hr class="style3"></center>
+            <center><!-- hr class="style3" --><h1>&#10087;</h1></center>
             <br clear=all>
+            % else:
+            <!-- last entry -->
+            <br clear=all>
+            % endif
         % endfor
         <center><h1>EOF</h1></center>
         <br clear=all>

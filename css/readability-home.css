@@ -4,6 +4,43 @@
 body {
 	background: #1E4E74;	
 	color: #ddd;
+	/* background: url(../images/background_masseffect.jpg) no-repeat center center fixed; */
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	margin-top:0px;
+	margin-bottom:0px;
+	margin-left:0px;
+	margin-right:0px;
+	background-color:#1E4E74;
+	padding:0px;
+}
+
+h1 {
+	text-transform: uppercase;
+}
+h1 {
+ overflow: hidden;
+ text-align: center;
+}
+h1:before,
+h1:after {
+ background-color: #333;
+ content: "";
+ display: inline-block;
+ height: 1px;
+ position: relative;
+ vertical-align: middle;
+ width: 50%;
+}
+h1:before {
+ right: 0.5em;
+ margin-left: -50%;
+}
+h1:after {
+ left: 0.5em;
+ margin-right: -50%;
 }
 
 img {
@@ -80,6 +117,17 @@ a.www-link {
 	height: 120px;
 }
 
+.roundbox {
+	-moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	border-radius: 5px;
+	padding:7px;
+	margin-left:30px;
+	background:#fff;
+	opacity:0.5;
+}
+
 .footer-credits-img {
 	width:176px;
 	height:66px;
@@ -87,6 +135,7 @@ a.www-link {
 }
 
 .settings-header {
+	color:black;
 	font-weight:bold;
 	width:150px;
 	padding:none;
@@ -103,7 +152,7 @@ div.settings-box, div#bookmarklet {
 div#bookmarklet {
 	width: 200px;
 	margin-top: 34px;
-	margin-left: 140px;
+	margin-left: 0px;
 	text-align: center;	
 }
 
@@ -124,7 +173,10 @@ div#margin {
 }
 .settings-box p {
 	margin: .1em 0;	
+	color:#000;
+	opacity:0.9;
 }
+
 #readHiddenContent {
 	display: none;	
 }
@@ -137,6 +189,7 @@ div#margin {
 	left: 30px;
 	padding: 1em 2em;
 	overflow: auto;
+	box-shadow: 0px 2px 9px rgba(0, 0, 0, .8);
 }
 #articleContent {
 	text-align: left;
@@ -240,6 +293,60 @@ div#margin {
 	font-weight: normal;
 }
 
+/* Background Options */
+.background-none {
+	background: url(../images/background_noise.png) repeat; /* https://www.cssmatic.com/noise-texture */
+	color: #ddd;
+	margin-top:0px;
+	margin-bottom:0px;
+	margin-left:0px;
+	margin-right:0px;
+	background-color:#1E4E74;
+	padding:0px;
+}
+.background-masseffect {
+	background: url(../images/background_paradise.jpg) no-repeat center center fixed;
+	color: #ddd;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	margin-top:0px;
+	margin-bottom:0px;
+	margin-left:0px;
+	margin-right:0px;
+	background-color:#1E4E74;
+	padding:0px;
+}
+.background-fancy {
+	background: url(../images/background_tron.jpg) no-repeat center center fixed;
+	color: #ddd;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	margin-top:0px;
+	margin-bottom:0px;
+	margin-left:0px;
+	margin-right:0px;
+	background-color:#1E4E74;
+	padding:0px;
+}
+.background-nature {
+	background: url(../images/background_city.jpg) no-repeat center center fixed;
+	color: #ddd;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	margin-top:0px;
+	margin-bottom:0px;
+	margin-left:0px;
+	margin-right:0px;
+	background-color:#1E4E74;
+	padding:0px;
+}
+
 /* Margin Options */
 .margin-x-wide {
 	width: 35%;
@@ -262,7 +369,7 @@ div#margin {
 #articleContent h1 {
 	font-size: 1.2em;
 	display: block;
-	text-transform:capitalize;
+	text-transform:uppercase;
 }
 #articleContent {
 	line-height: 1.4em;	
