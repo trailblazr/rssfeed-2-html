@@ -11,7 +11,7 @@ enum34==1.1.6
 feedparser==5.2.1
 idna==2.6
 ipaddress==1.0.19
-lxml==4.6.5
+lxml==4.9.1
 Mako==1.0.7
 MarkupSafe==1.0
 pycparser==2.18
